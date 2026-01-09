@@ -39,6 +39,7 @@ jobs:
         run: |
           git add -A
           git commit -m "Update Claude Code package"
+          git pull --rebase
           git push
 
       - name: Build package
