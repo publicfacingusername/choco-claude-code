@@ -3,3 +3,4 @@ $f = "$env:TEMP\claude.exe"; Invoke-WebRequest $url -OutFile $f; (Get-FileHash $
 
 
 
+
