@@ -9,3 +9,4 @@ Get-ChocolateyWebFile -PackageName $env:ChocolateyPackageName `
   -Checksum '5b34c42ae8a442ed1b8e6ebcd60b216e16c33e23abb47088b6bf26d75ed38929' `
   -ChecksumType 'sha256'
 
+
