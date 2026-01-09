@@ -2,3 +2,4 @@ $url = 'https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-
 $f = "$env:TEMP\claude.exe"; Invoke-WebRequest $url -OutFile $f; (Get-FileHash $f -Algorithm SHA256).Hash; Remove-Item $f
 
 
+
