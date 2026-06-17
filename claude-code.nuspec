@@ -15,6 +15,7 @@
     <docsUrl>https://docs.anthropic.com/en/docs/claude-code/overview</docsUrl>
     <tags>ai claude anthropic code cli</tags>
     <summary> Claude Code is an agentic coding tool that lives in your terminal, understands your codebase, and helps you code faster by executing routine tasks, explaining complex code, and handling git workflows - all through natural language commands.</summary>
+    <releaseNotes>https://code.claude.com/docs/en/changelog</releaseNotes>
     <description>
 # Claude Code
 
@@ -57,52 +58,3 @@ For full details, please review our [Commercial Terms of Service](https://www.an
     <file src="tools\**" target="tools" />
   </files>
 </package>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
