@@ -1,13 +1,14 @@
 $ErrorActionPreference = 'Stop'
 $toolsDir = Split-Path -Parent $MyInvocation.MyCommand.Definition
 $exePath  = Join-Path $toolsDir 'claude.exe'
-$Url      = 'https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.287/win32-x64/claude.exe'
+$Url      = 'https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.292/win32-x64/claude.exe'
 
 Get-ChocolateyWebFile -PackageName $env:ChocolateyPackageName `
   -FileFullPath $exePath `
   -Url $Url `
-  -Checksum '6d5be51f0edfe3429cd1a9885950db31c1e59eb9a2c9a30a47e64179d2ff98b4' `
+  -Checksum 'eb95bb65955f8b1702e800815f9a2c0388a5de0f196c354c7ee1dd5cb9a2ba23' `
   -ChecksumType 'sha256'
+
 
 
 
