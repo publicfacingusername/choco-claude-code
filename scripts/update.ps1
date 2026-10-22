@@ -13,8 +13,13 @@ $checksum = $manifest.platforms.'win32-x64'.checksum
 if ([string]::IsNullOrWhiteSpace($checksum)) {
   throw "Manifest missing win32-x64 checksum for $version."
 }
+$checksumArm64 = $manifest.platforms.'win32-arm64'.checksum
+if ([string]::IsNullOrWhiteSpace($checksumArm64)) {
+  throw "Manifest missing win32-arm64 checksum for $version."
+}
 
 $downloadUrl = "$releaseBase/$version/win32-x64/claude.exe"
+$downloadUrlArm64 = "$releaseBase/$version/win32-arm64/claude.exe"
 $repoRoot = Split-Path -Parent $PSScriptRoot
 
 $nuspec = Get-ChildItem -Path $repoRoot -Filter 'claude-code-*.nuspec' | Select-Object -First 1
@@ -32,12 +37,13 @@ if ($currentVersion -eq $version -and $nuspec.Name -eq $expectedNuspecName) {
   $installContent = Get-Content -Path $installPath -Raw
   $hasDownloadUrl = $installContent -match [regex]::Escape($downloadUrl)
   $hasChecksum = $installContent -match [regex]::Escape($checksum)
+  $hasArm64 = ($installContent -match [regex]::Escape($downloadUrlArm64)) -and ($installContent -match [regex]::Escape($checksumArm64))
 
   $checksumPath = Join-Path $repoRoot 'get_checksum.ps1'
   $checksumContent = Get-Content -Path $checksumPath -Raw
   $hasChecksumUrl = $checksumContent -match [regex]::Escape($downloadUrl)
 
-  if ($hasDownloadUrl -and $hasChecksum -and $hasChecksumUrl) {
+  if ($hasDownloadUrl -and $hasChecksum -and $hasArm64 -and $hasChecksumUrl) {
     Write-Host "Claude Code is already at $version. No update needed."
     return
   }
@@ -65,8 +71,18 @@ $installContent = [regex]::Replace(
 )
 $installContent = [regex]::Replace(
   $installContent,
-  "-Checksum\s+'[^']+'",
-  "-Checksum '$checksum'"
+  'https://storage.googleapis.com/.+?/claude-code-releases/[^/]+/win32-arm64/claude.exe',
+  $downloadUrlArm64
+)
+$installContent = [regex]::Replace(
+  $installContent,
+  '(?m)^(\$ChecksumX64\s*=\s*)''[^'']+''',
+  "`${1}'$checksum'"
+)
+$installContent = [regex]::Replace(
+  $installContent,
+  '(?m)^(\$ChecksumArm64\s*=\s*)''[^'']+''',
+  "`${1}'$checksumArm64'"
 )
 Set-Content -Path $installPath -Value $installContent -Encoding utf8
 
